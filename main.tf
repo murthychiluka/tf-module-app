@@ -1,5 +1,5 @@
 resource "aws_launch_template" "main" {
-  name = "${var.component}-${var.env}"
+     name = "${var.component}-${var.env}"
 
 
 #   iam_instance_profile {
@@ -26,4 +26,6 @@ resource "aws_launch_template" "main" {
   }
 
 #   user_data = filebase64("${path.module}/example.sh")
-}
+
+
+ 
