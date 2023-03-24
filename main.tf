@@ -38,10 +38,10 @@ resource "aws_autoscaling_group" "main" {
     version = "$Latest"
 
   }
-  tags = merge(
-    var.tags,
-    { Name = "${var.component}-${var.env}" }
-  )
+  #   tags = merge(
+  #     var.tags,
+  #     { Name = "${var.component}-${var.env}" }
+  #   )
 }
 
 
