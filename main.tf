@@ -6,7 +6,8 @@ resource "aws_launch_template" "main" {
   #     name = "test"
   #   }
 
-  image_id = "data.aws_ami.ami.id"
+  image_id = data.aws_ami.ami.id
+
 
   instance_market_options {
     market_type = "spot"
