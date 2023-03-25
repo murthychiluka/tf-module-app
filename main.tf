@@ -2,9 +2,9 @@ resource "aws_launch_template" "main" {
   name = "${var.component}-${var.env}"
 
 
-  #   iam_instance_profile {
-  #     name = "test"
-  #   }
+  iam_instance_profile {
+    name = aws_iam_instance_profile.main.name
+  }
 
   image_id = data.aws_ami.ami.id
 
@@ -60,6 +60,14 @@ resource "aws_security_group" "main" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = var.bastion_cidr
+
+  }
+  ingress {
+    description = "APP"
+    from_port   = var.port
+    to_port     = var.port
+    protocol    = "tcp"
+    cidr_blocks = var.allow_app_to
 
   }
 

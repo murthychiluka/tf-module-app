@@ -12,3 +12,4 @@ data "aws_ami" "ami" {
 #     env       = var.env
 #   }
 # }
+data "aws_caller_identity" "account" {}
