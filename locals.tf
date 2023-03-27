@@ -6,4 +6,4 @@ locals {
   dns_name = var.component == "frontend" ? "${local.dns_word}.${var.dns_domain}" : "${var.component}-${var.env}.${var.dns_domain}"
 }
 
-#
+
