@@ -15,7 +15,11 @@ resource "aws_iam_policy" "main" {
           "ssm:GetParameters",
           "ssm:GetParameter"
         ],
-        "Resource" : "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.${var.component}*"
+        "Resource" : [
+          "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.${var.component}*",
+
+          "arn:aws:ssm:us-east-1:${data.aws_caller_identity.account.account_id}:parameter/${var.env}.docdb.*"
+        ]
       },
       {
         "Sid" : "VisualEditor1",
@@ -58,4 +62,4 @@ resource "aws_iam_instance_profile" "main" {
 resource "aws_iam_role_policy_attachment" "attach" {
   role       = aws_iam_role.main.name
   policy_arn = aws_iam_policy.main.arn
-}  
+}
