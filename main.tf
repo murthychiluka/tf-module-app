@@ -8,7 +8,6 @@ resource "aws_launch_template" "main" {
 
   image_id = data.aws_ami.ami.id
 
-
   instance_market_options {
     market_type = "spot"
   }
@@ -47,22 +46,22 @@ resource "aws_autoscaling_group" "main" {
 
   }
 
-  #   resource "aws_autoscaling_policy" "asg-cpu-rule" {
-  #   name                   = "CPULoadDetect"
-  #   autoscaling_group_name = aws_autoscaling_group.main.name
-  #   policy_type            = "TargetTrackingScaling"
-  #   target_tracking_configuration {
-  #     predefined_metric_specification {
-  #       predefined_metric_type = "ASGAverageCPUUtilization"
-  #     }
-  #     target_value = 40.0
-  #   }
-  # }
+    resource "aws_autoscaling_policy" "asg-cpu-rule" {
+    name                   = "CPULoadDetect"
+    autoscaling_group_name = aws_autoscaling_group.main.name
+    policy_type            = "TargetTrackingScaling"
+    target_tracking_configuration {
+      predefined_metric_specification {
+        predefined_metric_type = "ASGAverageCPUUtilization"
+      }
+      target_value = 20.0
+    }
+  }
 
-  #   tags = merge(
-  #     var.tags,
-  #     { Name = "${var.component}-${var.env}" }
-  #   )
+    tags = merge(
+      var.tags,
+      { Name = "${var.component}-${var.env}" }
+    )
 }
 resource "aws_security_group" "main" {
   name        = "${var.component}-${var.env}"
@@ -124,6 +123,7 @@ resource "aws_lb_target_group" "main" {
     timeout             = 4
     path                = "/health"
   }
+  deregistration_delay = 30
   tags = merge(
     var.tags,
     { Name = "${var.component}-${var.env}" }
